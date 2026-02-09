@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ciezkie pytanie</title>
+    <style>
+        body {
+            background-color: #fff0f3;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            color: #ff4d6d;
+            text-align: center;
+        }
+        #introOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #fff0f3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .intro-box {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.9); /* Lekko przezroczyste białe tło */
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(255, 77, 109, 0.2);
+            max-width: 400px;
+            width: 90%;
+            display: none; /* Ukryte na początku */
+        }
+
+        .photo-gallery img {
+            width: 100%;
+            border-radius: 15px;
+            margin-bottom: 1rem;
+            border: 3px solid #ffb3c1;
+        }
+
+        h1 { font-size: 1.8rem; margin-bottom: 1.5rem; }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        #yesBtn, #nextBtn { background-color: #ff4d6d; color: white; }
+        #noBtn { background-color: #ffb3c1; color: white; position: relative; }
+
+        #jamnik {
+            width: 100%;
+            max-width: 350px;
+            height: auto;
+            border-radius: 15px;
+        }
+
+        .celebration { display: none; }
+    </style>
+</head>
+<body>
+
+    <div id="introOverlay">
+        <div class="intro-box">
+            <h1 id="introText">Hejka piękna! Jesteś gotowa?</h1>
+            <button id="nextBtn" onclick="nextQuestion()">Tak!</button>
+        </div>
+    </div>
+
+    <div class="container" id="mainCard">
+        <div class="photo-gallery">
+            <img src="my.jpg" alt="My">
+        </div>
+        
+        <h1>Alicja, zostaniesz moją walentynką? ❤️</h1>
+        
+        <div class="buttons">
+            <button id="yesBtn" onclick="celebrate()">TAK!</button>
+            <button id="noBtn" onmouseover="moveButton()">Nie</button>
+        </div>
+    </div>
+
+    <div class="container celebration" id="celebrationCard">
+        <h1>Moja piękna kobieta kocham cie bardzoo ❤️</h1>
+        <h2>Jesteś dla mnie wszystkim mam nadzieje, że to wiesz.</h2>
+        <img src="jamnik.jpg" id="jamnik" alt="Nela">
+        <p style="font-size: 1.2rem; margin-top: 10px;">Nela się cieszy bardzo, że kliknęłaś tak</p>
+    </div>
+
+    <script>
+        let step = 1;
+
+        function nextQuestion() {
+            const text = document.getElementById('introText');
+            if (step === 1) {
+                text.innerText = "Napewno??";
+                step++;
+            } else if (step === 2) {
+                text.innerText = "100%???";
+                step++;
+            } else {
+                document.getElementById('introOverlay').style.display = 'none';
+                document.getElementById('mainCard').style.display = 'block';
+            }
+        }
+
+        function moveButton() {
+            const noBtn = document.getElementById('noBtn');
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            
+            noBtn.style.position = 'absolute';
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+        }
+
+        function celebrate() {
+            document.getElementById('mainCard').style.display = 'none';
+            document.getElementById('celebrationCard').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
